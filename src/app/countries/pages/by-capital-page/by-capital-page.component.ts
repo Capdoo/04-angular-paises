@@ -10,15 +10,15 @@ import { Country } from '../../interfaces/country';
 export class ByCapitalPageComponent {
 
   countries: Country[] = [];
+  isError: boolean = false;
 
   constructor(private countriesService: CountriesService) {}
 
   searchByCapital(event: string) {
-    console.log('Desde ByCapitalPage');
     console.log({event});
     this.countriesService.searchCapital(event).subscribe(
       (data: Country[]) => {
-        console.log(data);
+        // console.log(data);
         this.countries = data;
       },
       (err) => {

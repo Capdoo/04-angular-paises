@@ -1,1 +1,20 @@
-<p>by-country-page works!</p>
+<h2>Por Nombre</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <!-- SearchBox -->
+        
+        <!-- Si no se especifica llaves cuadradas, entonces siempre es un string osea lo que esta esperando -->
+        <shared-search-box placeholder="Buscar por país" (onTermino)="searchByName($event)"></shared-search-box>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        Tabla de resultados
+        <hr>
+        <countries-country-table [countriesLand]="countries"></countries-country-table>
+    </div>
+</div>
