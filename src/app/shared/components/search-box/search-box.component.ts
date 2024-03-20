@@ -1,11 +1,15 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Subject, Subscription, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'shared-search-box',
   templateUrl: './search-box.component.html',
   styles: ``
 })
-export class SearchBoxComponent {
+export class SearchBoxComponent implements OnInit, OnDestroy{
+
+  private debouncer: Subject<string> = new Subject<string>();
+  private debouncerSubscription?: Subscription;
 
   @Input()
   public placeholder: string = '';
@@ -15,6 +19,28 @@ export class SearchBoxComponent {
 
   @ViewChild('cualquierReferencia')
   public tagInput!: ElementRef<HTMLInputElement>;
+  
+  @Output()
+  public onDebounce: EventEmitter<string> = new EventEmitter();
+
+  ngOnInit(): void {
+
+    this.debouncerSubscription = this.debouncer.pipe(
+      debounceTime(500)
+    )
+    .subscribe(
+      (value) => {
+        this.onDebounce.emit(value);
+      }
+    )
+  }
+
+  ngOnDestroy(): void {
+    // throw new Error('Method not implemented.');
+    console.log('Destruido');
+    this.debouncerSubscription?.unsubscribe();
+  }
+
 
   emitTermino(): void {
 
@@ -24,6 +50,11 @@ export class SearchBoxComponent {
 
     this.onTermino.emit(newTag);
     this.tagInput.nativeElement.value = '';
+  }
+
+  onKeyPress(searchTerm: string) {
+    // console.log(searchTerm);
+    this.debouncer.next( searchTerm );
   }
 
 }
