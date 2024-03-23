@@ -6,7 +6,7 @@
         <!-- SearchBox -->
         
         <!-- Si no se especifica llaves cuadradas, entonces siempre es un string osea lo que esta esperando -->
-        <shared-search-box placeholder="Buscar por país" (onTermino)="searchByName($event)"></shared-search-box>
+        <shared-search-box placeholder="Buscar por país" (onDebounce)="searchByName($event)" [initialValue]="initialValue"></shared-search-box>
 
     </div>
 </div>
@@ -14,6 +14,7 @@
 <div class="row">
     <div class="col">
         <hr>
+        <shared-loader-spinner *ngIf="isLoading"></shared-loader-spinner>
         <countries-country-table [countriesLand]="countries"></countries-country-table>
     </div>
 </div>

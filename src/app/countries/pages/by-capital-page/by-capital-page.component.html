@@ -5,7 +5,7 @@
     <div class="col">
         <!-- SearchBox -->
         <!-- Si no se especifica llaves cuadradas, entonces siempre es un string osea lo que esta esperando -->
-        <shared-search-box placeholder="Buscar por capital" (onDebounce)="searchByCapital($event)"></shared-search-box>
+        <shared-search-box placeholder="Buscar por capital" (onDebounce)="searchByCapital($event)" [initialValue]="initialValue"></shared-search-box>
 
     </div>
 </div>
