@@ -32,6 +32,7 @@ export class ByRegionPageComponent implements OnInit{
       (data: Country[]) => {
         // console.log(data);
         this.countries = data;
+        this.isLoading = false;
       },
       (err) => {
         console.log(err);
